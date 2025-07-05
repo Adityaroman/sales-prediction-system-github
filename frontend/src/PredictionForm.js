@@ -1,3 +1,4 @@
+Set-Content -Path frontend\src\PredictionForm.js -Value @"
 import React, { useState, useEffect } from 'react';
 
 const PredictionForm = () => {
@@ -36,7 +37,8 @@ const PredictionForm = () => {
   }, []);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: name === 'age' || name === 'orders' ? parseInt(value) || '' : value });
   };
 
   const handleSubmit = async (e) => {
@@ -47,10 +49,15 @@ const PredictionForm = () => {
       const response = await fetch('https://sales-prediction-backend.onrender.com/predict', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          ...formData,
+          age: parseInt(formData.age) || 0,
+          orders: parseInt(formData.orders) || 0
+        })
       });
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(`HTTP error! status: ${response.status}, message: ${errorData.error || 'Unknown error'}`);
       }
       const data = await response.json();
       if (data.error) {
@@ -66,127 +73,123 @@ const PredictionForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl p-8 space-y-6 transform transition-all hover:scale-105">
-        <h1 className="text-4xl font-extrabold text-center text-indigo-600 tracking-tight animate-pulse">Sales Prediction</h1>
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div className="space-y-2">
-            <label className="block text-sm font-semibold text-gray-800">Age</label>
-            <input
-              type="number"
-              name="age"
-              value={formData.age}
-              onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 text-sm bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 ease-in-out"
-              placeholder="Enter age"
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <label className="block text-sm font-semibold text-gray-800">Gender</label>
-            <select
-              name="gender"
-              value={formData.gender}
-              onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 text-sm bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 ease-in-out"
-            >
-              <option value="M">Male</option>
-              <option value="F">Female</option>
-            </select>
-          </div>
-          <div className="space-y-2">
-            <label className="block text-sm font-semibold text-gray-800">Marital Status</label>
-            <select
-              name="maritalStatus"
-              value={formData.maritalStatus}
-              onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 text-sm bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 ease-in-out"
-            >
-              <option value="Married">Married</option>
-              <option value="Single">Single</option>
-            </select>
-          </div>
-          <div className="space-y-2">
-            <label className="block text-sm font-semibold text-gray-800">State</label>
-            <select
-              name="state"
-              value={formData.state}
-              onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 text-sm bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 ease-in-out"
-            >
-              <option value="Delhi">Delhi</option>
-              <option value="Haryana">Haryana</option>
-              <option value="Karnataka">Karnataka</option>
-              <option value="Uttar Pradesh">Uttar Pradesh</option>
-              <option value="Maharashtra">Maharashtra</option>
-            </select>
-          </div>
-          <div className="space-y-2">
-            <label className="block text-sm font-semibold text-gray-800">Product Category</label>
-            <select
-              name="productCategory"
-              value={formData.productCategory}
-              onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 text-sm bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 ease-in-out"
-            >
-              <option value="Electronics">Electronics</option>
-              <option value="Clothing">Clothing</option>
-              <option value="Home">Home</option>
-              <option value="Food">Food</option>
-            </select>
-          </div>
-          <div className="space-y-2">
-            <label className="block text-sm font-semibold text-gray-800">Age Group</label>
-            <select
-              name="ageGroup"
-              value={formData.ageGroup}
-              onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 text-sm bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 ease-in-out"
-            >
-              <option value="18-25">18-25</option>
-              <option value="26-35">26-35</option>
-              <option value="36-45">36-45</option>
-              <option value="46-55">46-55</option>
-              <option value="56-70">56-70</option>
-            </select>
-          </div>
-          <div className="space-y-2">
-            <label className="block text-sm font-semibold text-gray-800">Number of Orders</label>
-            <input
-              type="number"
-              name="orders"
-              value={formData.orders}
-              onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 text-sm bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 ease-in-out"
-              placeholder="Enter number of orders"
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <label className="block text-sm font-semibold text-gray-800">Festival</label>
-            <select
-              name="festival"
-              value={formData.festival}
-              onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 text-sm bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 ease-in-out"
-            >
-              <option value="Diwali">Diwali</option>
-              <option value="Holi">Holi</option>
-              <option value="Christmas">Christmas</option>
-              <option value="Eid">Eid</option>
-              <option value="None">None</option>
-            </select>
-          </div>
+    <div style={{
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #4B0082, #FF69B4)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '1rem',
+      fontFamily: "'Inter', sans-serif"
+    }}>
+      <div style={{
+        maxWidth: '28rem',
+        width: '100%',
+        background: 'white',
+        borderRadius: '1rem',
+        boxShadow: '0 10px 20px rgba(0,0,0,0.2)',
+        padding: '2rem',
+        transition: 'transform 0.3s ease-in-out',
+        transform: loading ? 'scale(0.98)' : 'scale(1)',
+        margin: '1rem'
+      }}>
+        <h1 style={{
+          fontSize: '2.25rem',
+          fontWeight: '800',
+          textAlign: 'center',
+          color: '#4B0082',
+          marginBottom: '1.5rem',
+          animation: 'pulse 2s infinite'
+        }}>
+          Sales Prediction
+        </h1>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          {[
+            { label: 'Age', name: 'age', type: 'number', placeholder: 'Enter age' },
+            { label: 'Gender', name: 'gender', type: 'select', options: ['M', 'F'], optionLabels: ['Male', 'Female'] },
+            { label: 'Marital Status', name: 'maritalStatus', type: 'select', options: ['Married', 'Single'] },
+            { label: 'State', name: 'state', type: 'select', options: ['Delhi', 'Haryana', 'Karnataka', 'Uttar Pradesh', 'Maharashtra'] },
+            { label: 'Product Category', name: 'productCategory', type: 'select', options: ['Electronics', 'Clothing', 'Home', 'Food'] },
+            { label: 'Age Group', name: 'ageGroup', type: 'select', options: ['18-25', '26-35', '36-45', '46-55', '56-70'] },
+            { label: 'Number of Orders', name: 'orders', type: 'number', placeholder: 'Enter number of orders' },
+            { label: 'Festival', name: 'festival', type: 'select', options: ['Diwali', 'Holi', 'Christmas', 'Eid', 'None'] }
+          ].map(field => (
+            <div key={field.name} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <label style={{ fontSize: '0.875rem', fontWeight: '600', color: '#1F2937' }}>
+                {field.label}
+              </label>
+              {field.type === 'select' ? (
+                <select
+                  name={field.name}
+                  value={formData[field.name]}
+                  onChange={handleChange}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    borderRadius: '0.5rem',
+                    border: '1px solid #D1D5DB',
+                    background: '#F9FAFB',
+                    fontSize: '0.875rem',
+                    color: '#1F2937',
+                    outline: 'none',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                    ':focus': { borderColor: '#4B0082', boxShadow: '0 0 0 3px rgba(75,0,130,0.2)' }
+                  }}
+                >
+                  {field.options.map((option, idx) => (
+                    <option key={option} value={option}>
+                      {field.optionLabels ? field.optionLabels[idx] : option}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <input
+                  type={field.type}
+                  name={field.name}
+                  value={formData[field.name]}
+                  onChange={handleChange}
+                  placeholder={field.placeholder}
+                  required
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    borderRadius: '0.5rem',
+                    border: '1px solid #D1D5DB',
+                    background: '#F9FAFB',
+                    fontSize: '0.875rem',
+                    color: '#1F2937',
+                    outline: 'none',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                    ':focus': { borderColor: '#4B0082', boxShadow: '0 0 0 3px rgba(75,0,130,0.2)' }
+                  }}
+                />
+              )}
+            </div>
+          ))}
           <button
             type="submit"
             disabled={loading}
-            className={`w-full bg-indigo-600 text-white font-semibold py-3 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300 ease-in-out transform hover:scale-105 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            style={{
+              width: '100%',
+              background: loading ? '#6B7280' : '#4B0082',
+              color: 'white',
+              fontWeight: '600',
+              padding: '0.75rem',
+              borderRadius: '0.5rem',
+              border: 'none',
+              cursor: loading ? 'not-allowed' : 'pointer',
+              transition: 'all 0.3s ease',
+              transform: loading ? 'scale(1)' : 'scale(1)',
+              ':hover': loading ? {} : { background: '#6A0DAD', transform: 'scale(1.05)' }
+            }}
           >
             {loading ? (
-              <span className="flex items-center justify-center">
-                <svg className="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <svg style={{ height: '1.25rem', width: '1.25rem', marginRight: '0.5rem', animation: 'spin 1s linear infinite' }} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 24 24">
+                  <circle style={{ opacity: '0.25' }} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path style={{ opacity: '0.75' }} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
                 Predicting...
               </span>
@@ -195,22 +198,55 @@ const PredictionForm = () => {
             )}
           </button>
         </form>
-        <div className="mt-6 text-center space-y-3">
+        <div style={{ marginTop: '1.5rem', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           {error && (
-            <p className="text-red-500 font-medium bg-red-50 p-3 rounded-lg">{error}</p>
+            <p style={{
+              color: '#DC2626',
+              fontWeight: '500',
+              background: '#FEE2E2',
+              padding: '0.75rem',
+              borderRadius: '0.5rem',
+              fontSize: '0.875rem'
+            }}>
+              {error}
+            </p>
           )}
           {prediction ? (
-            <div className="p-4 bg-green-50 rounded-lg border border-green-200 animate-fade-in">
-              <p className="text-lg font-semibold text-gray-800">Predicted Sales</p>
-              <p className="text-3xl font-bold text-green-600">${prediction.toFixed(2)}</p>
+            <div style={{
+              padding: '1rem',
+              background: '#D1FAE5',
+              border: '1px solid #6EE7B7',
+              borderRadius: '0.5rem',
+              animation: 'fadeIn 0.5s ease-out'
+            }}>
+              <p style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1F2937' }}>Predicted Sales</p>
+              <p style={{ fontSize: '1.875rem', fontWeight: '700', color: '#059669' }}>${prediction.toFixed(2)}</p>
             </div>
           ) : (
-            <p className="text-lg text-gray-600 animate-pulse">Enter details to predict sales</p>
+            <p style={{ fontSize: '1.125rem', color: '#4B5563', animation: 'pulse 2s infinite' }}>
+              Enter details to predict sales
+            </p>
           )}
         </div>
       </div>
+      <style>{`
+        @keyframes pulse {
+          0% { opacity: 1; }
+          50% { opacity: 0.5; }
+          100% { opacity: 1; }
+        }
+        @keyframes fadeIn {
+          0% { opacity: 0; transform: translateY(10px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
 };
 
 export default PredictionForm;
+"@
