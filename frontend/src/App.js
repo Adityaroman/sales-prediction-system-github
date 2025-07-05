@@ -1,24 +1,21 @@
-import React from 'react';
-import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import PredictionForm from './PredictionForm';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Dashboard from './Dashboard';
+import PredictionForm from './PredictionForm';
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-gray-100">
-        <nav className="bg-festivalRed p-4 shadow-lg">
-          <ul className="flex space-x-6 text-white max-w-7xl mx-auto">
-            <li><Link to="/" className="hover:underline text-lg font-semibold">Dashboard</Link></li>
-            <li><Link to="/predict" className="hover:underline text-lg font-semibold">Predict</Link></li>
-          </ul>
+    <BrowserRouter basename="/sales-prediction-system-github">
+      <div className="container mx-auto">
+        <nav className="bg-blue-500 p-4">
+          <a href="/sales-prediction-system-github/" className="text-white mr-4">Dashboard</a>
+          <a href="/sales-prediction-system-github/predict" className="text-white">Predict</a>
         </nav>
-        <Switch>
-          <Route exact path="/" component={Dashboard} />
-          <Route path="/predict" component={PredictionForm} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/predict" element={<PredictionForm />} />
+        </Routes>
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
 

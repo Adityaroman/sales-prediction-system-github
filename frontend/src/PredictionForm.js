@@ -14,7 +14,6 @@ const PredictionForm = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Fallback to static predict.json for GitHub Pages
   useEffect(() => {
     fetch(`${process.env.PUBLIC_URL}/predict.json`, { cache: 'no-store' })
       .then(res => {
@@ -44,7 +43,7 @@ const PredictionForm = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('https://your-app.onrender.com/predict', {
+      const response = await fetch('https://sales-prediction-backend.onrender.com/predict', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
