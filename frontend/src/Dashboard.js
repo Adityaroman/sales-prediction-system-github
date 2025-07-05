@@ -26,34 +26,42 @@ const Dashboard = () => {
       });
   }, []);
 
-  if (error) return <div className="p-4 text-red-500">Error: {error}</div>;
-  if (!edaData) return <div className="p-4">Loading...</div>;
+  if (error) return <div className="p-4 text-red-500 text-center">Error: {error}</div>;
+  if (!edaData) return <div className="p-4 text-center text-gray-600">Loading...</div>;
 
   const genderPlot = {
-    data: [{ type: 'bar', x: Object.keys(edaData.sales_by_gender), y: Object.values(edaData.sales_by_gender) }],
-    layout: { title: 'Sales by Gender', xaxis: { title: 'Gender' }, yaxis: { title: 'Amount' } }
+    data: [{ type: 'bar', x: Object.keys(edaData.sales_by_gender), y: Object.values(edaData.sales_by_gender), marker: { color: '#3B82F6' } }],
+    layout: { title: 'Sales by Gender', xaxis: { title: 'Gender' }, yaxis: { title: 'Amount' }, paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)' }
   };
   const statePlot = {
-    data: [{ type: 'bar', x: Object.keys(edaData.sales_by_state), y: Object.values(edaData.sales_by_state) }],
-    layout: { title: 'Sales by State', xaxis: { title: 'State' }, yaxis: { title: 'Amount' } }
+    data: [{ type: 'bar', x: Object.keys(edaData.sales_by_state), y: Object.values(edaData.sales_by_state), marker: { color: '#10B981' } }],
+    layout: { title: 'Sales by State', xaxis: { title: 'State' }, yaxis: { title: 'Amount' }, paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)' }
   };
   const categoryPlot = {
-    data: [{ type: 'bar', x: Object.keys(edaData.sales_by_category), y: Object.values(edaData.sales_by_category) }],
-    layout: { title: 'Sales by Category', xaxis: { title: 'Category' }, yaxis: { title: 'Amount' } }
+    data: [{ type: 'bar', x: Object.keys(edaData.sales_by_category), y: Object.values(edaData.sales_by_category), marker: { color: '#F59E0B' } }],
+    layout: { title: 'Sales by Category', xaxis: { title: 'Category' }, yaxis: { title: 'Amount' }, paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)' }
   };
   const ageGroupPlot = {
-    data: [{ type: 'bar', x: Object.keys(edaData.sales_by_age_group), y: Object.values(edaData.sales_by_age_group) }],
-    layout: { title: 'Sales by Age Group', xaxis: { title: 'Age Group' }, yaxis: { title: 'Amount' } }
+    data: [{ type: 'bar', x: Object.keys(edaData.sales_by_age_group), y: Object.values(edaData.sales_by_age_group), marker: { color: '#EF4444' } }],
+    layout: { title: 'Sales by Age Group', xaxis: { title: 'Age Group' }, yaxis: { title: 'Amount' }, paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)' }
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Sales Dashboard</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Plot data={genderPlot.data} layout={genderPlot.layout} />
-        <Plot data={statePlot.data} layout={statePlot.layout} />
-        <Plot data={categoryPlot.data} layout={categoryPlot.layout} />
-        <Plot data={ageGroupPlot.data} layout={ageGroupPlot.layout} />
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 p-6">
+      <h1 className="text-4xl font-bold text-center text-blue-600 mb-8">Sales Analysis Dashboard</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-white rounded-lg shadow-lg p-4">
+          <Plot data={genderPlot.data} layout={genderPlot.layout} className="w-full h-[400px]" />
+        </div>
+        <div className="bg-white rounded-lg shadow-lg p-4">
+          <Plot data={statePlot.data} layout={statePlot.layout} className="w-full h-[400px]" />
+        </div>
+        <div className="bg-white rounded-lg shadow-lg p-4">
+          <Plot data={categoryPlot.data} layout={categoryPlot.layout} className="w-full h-[400px]" />
+        </div>
+        <div className="bg-white rounded-lg shadow-lg p-4">
+          <Plot data={ageGroupPlot.data} layout={ageGroupPlot.layout} className="w-full h-[400px]" />
+        </div>
       </div>
     </div>
   );
