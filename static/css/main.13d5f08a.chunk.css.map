@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA,cAAc,CACd,oBAAoB,CACpB,mBAAmB,CAGnB,KACE,8BACF","file":"main.13d5f08a.chunk.css","sourcesContent":["@tailwind base;\r\n@tailwind components;\r\n@tailwind utilities;\r\n\r\n/* Optional: Add custom styles if needed */\r\nbody {\r\n  font-family: 'Inter', sans-serif;\r\n}"]}
