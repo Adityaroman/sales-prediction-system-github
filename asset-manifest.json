@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/sales-prediction-system-github/static/css/main.ba98c072.css",
-    "main.js": "/sales-prediction-system-github/static/js/main.071c5eb7.js",
-    "static/js/488.d7d86b95.chunk.js": "/sales-prediction-system-github/static/js/488.d7d86b95.chunk.js",
+    "main.js": "/sales-prediction-system-github/static/js/main.55a59a82.js",
+    "static/js/488.0bb960fd.chunk.js": "/sales-prediction-system-github/static/js/488.0bb960fd.chunk.js",
     "index.html": "/sales-prediction-system-github/index.html",
     "main.ba98c072.css.map": "/sales-prediction-system-github/static/css/main.ba98c072.css.map",
-    "main.071c5eb7.js.map": "/sales-prediction-system-github/static/js/main.071c5eb7.js.map",
-    "488.d7d86b95.chunk.js.map": "/sales-prediction-system-github/static/js/488.d7d86b95.chunk.js.map"
+    "main.55a59a82.js.map": "/sales-prediction-system-github/static/js/main.55a59a82.js.map",
+    "488.0bb960fd.chunk.js.map": "/sales-prediction-system-github/static/js/488.0bb960fd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ba98c072.css",
-    "static/js/main.071c5eb7.js"
+    "static/js/main.55a59a82.js"
   ]
 }
