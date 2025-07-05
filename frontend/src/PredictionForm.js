@@ -8,7 +8,8 @@ const PredictionForm = () => {
     state: 'Delhi',
     productCategory: 'Electronics',
     ageGroup: '18-25',
-    orders: ''
+    orders: '',
+    festival: 'Diwali'
   });
   const [prediction, setPrediction] = useState(null);
   const [error, setError] = useState(null);
@@ -65,53 +66,53 @@ const PredictionForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-2xl p-8 space-y-6">
-        <h1 className="text-3xl font-extrabold text-center text-primary tracking-tight">Sales Prediction</h1>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl p-8 space-y-6 transform transition-all hover:scale-105">
+        <h1 className="text-4xl font-extrabold text-center text-indigo-600 tracking-tight animate-pulse">Sales Prediction</h1>
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">Age</label>
+            <label className="block text-sm font-semibold text-gray-800">Age</label>
             <input
               type="number"
               name="age"
               value={formData.age}
               onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition duration-200"
+              className="block w-full rounded-lg border border-gray-300 p-3 text-sm bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 ease-in-out"
               placeholder="Enter age"
               required
             />
           </div>
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">Gender</label>
+            <label className="block text-sm font-semibold text-gray-800">Gender</label>
             <select
               name="gender"
               value={formData.gender}
               onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition duration-200"
+              className="block w-full rounded-lg border border-gray-300 p-3 text-sm bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 ease-in-out"
             >
               <option value="M">Male</option>
               <option value="F">Female</option>
             </select>
           </div>
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">Marital Status</label>
+            <label className="block text-sm font-semibold text-gray-800">Marital Status</label>
             <select
               name="maritalStatus"
               value={formData.maritalStatus}
               onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition duration-200"
+              className="block w-full rounded-lg border border-gray-300 p-3 text-sm bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 ease-in-out"
             >
               <option value="Married">Married</option>
               <option value="Single">Single</option>
             </select>
           </div>
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">State</label>
+            <label className="block text-sm font-semibold text-gray-800">State</label>
             <select
               name="state"
               value={formData.state}
               onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition duration-200"
+              className="block w-full rounded-lg border border-gray-300 p-3 text-sm bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 ease-in-out"
             >
               <option value="Delhi">Delhi</option>
               <option value="Haryana">Haryana</option>
@@ -121,12 +122,12 @@ const PredictionForm = () => {
             </select>
           </div>
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">Product Category</label>
+            <label className="block text-sm font-semibold text-gray-800">Product Category</label>
             <select
               name="productCategory"
               value={formData.productCategory}
               onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition duration-200"
+              className="block w-full rounded-lg border border-gray-300 p-3 text-sm bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 ease-in-out"
             >
               <option value="Electronics">Electronics</option>
               <option value="Clothing">Clothing</option>
@@ -135,12 +136,12 @@ const PredictionForm = () => {
             </select>
           </div>
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">Age Group</label>
+            <label className="block text-sm font-semibold text-gray-800">Age Group</label>
             <select
               name="ageGroup"
               value={formData.ageGroup}
               onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition duration-200"
+              className="block w-full rounded-lg border border-gray-300 p-3 text-sm bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 ease-in-out"
             >
               <option value="18-25">18-25</option>
               <option value="26-35">26-35</option>
@@ -150,34 +151,61 @@ const PredictionForm = () => {
             </select>
           </div>
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">Number of Orders</label>
+            <label className="block text-sm font-semibold text-gray-800">Number of Orders</label>
             <input
               type="number"
               name="orders"
               value={formData.orders}
               onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition duration-200"
+              className="block w-full rounded-lg border border-gray-300 p-3 text-sm bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 ease-in-out"
               placeholder="Enter number of orders"
               required
             />
           </div>
+          <div className="space-y-2">
+            <label className="block text-sm font-semibold text-gray-800">Festival</label>
+            <select
+              name="festival"
+              value={formData.festival}
+              onChange={handleChange}
+              className="block w-full rounded-lg border border-gray-300 p-3 text-sm bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-300 ease-in-out"
+            >
+              <option value="Diwali">Diwali</option>
+              <option value="Holi">Holi</option>
+              <option value="Christmas">Christmas</option>
+              <option value="Eid">Eid</option>
+              <option value="None">None</option>
+            </select>
+          </div>
           <button
             type="submit"
             disabled={loading}
-            className={`w-full bg-primary text-white font-semibold py-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition duration-200 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`w-full bg-indigo-600 text-white font-semibold py-3 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300 ease-in-out transform hover:scale-105 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
-            {loading ? 'Predicting...' : 'Predict Sales'}
+            {loading ? (
+              <span className="flex items-center justify-center">
+                <svg className="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Predicting...
+              </span>
+            ) : (
+              'Predict Sales'
+            )}
           </button>
         </form>
         <div className="mt-6 text-center space-y-3">
-          {error && <p className="text-red-600 font-medium">{error}</p>}
+          {error && (
+            <p className="text-red-500 font-medium bg-red-50 p-3 rounded-lg">{error}</p>
+          )}
           {prediction ? (
-            <div className="p-4 bg-secondary/10 rounded-lg border border-secondary/20">
+            <div className="p-4 bg-green-50 rounded-lg border border-green-200 animate-fade-in">
               <p className="text-lg font-semibold text-gray-800">Predicted Sales</p>
-              <p className="text-2xl font-bold text-secondary">${prediction.toFixed(2)}</p>
+              <p className="text-3xl font-bold text-green-600">${prediction.toFixed(2)}</p>
             </div>
           ) : (
-            <p className="text-lg text-gray-600">Enter details to predict sales</p>
+            <p className="text-lg text-gray-600 animate-pulse">Enter details to predict sales</p>
           )}
         </div>
       </div>
