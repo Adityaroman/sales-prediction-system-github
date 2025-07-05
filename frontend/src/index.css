@@ -1,5 +1,8 @@
-Set-Content -Path frontend\src\index.css -Value @"
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-"@
+
+/* Optional: Add custom styles if needed */
+body {
+  font-family: 'Inter', sans-serif;
+}

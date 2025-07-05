@@ -66,8 +66,8 @@ const PredictionForm = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 space-y-6">
-        <h1 className="text-3xl font-extrabold text-center text-blue-700 tracking-tight">Sales Prediction</h1>
+      <div className="max-w-md w-full bg-white rounded-2xl shadow-2xl p-8 space-y-6">
+        <h1 className="text-3xl font-extrabold text-center text-primary tracking-tight">Sales Prediction</h1>
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700">Age</label>
@@ -76,7 +76,7 @@ const PredictionForm = () => {
               name="age"
               value={formData.age}
               onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 sm:text-sm"
+              className="block w-full rounded-lg border border-gray-300 p-3 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition duration-200"
               placeholder="Enter age"
               required
             />
@@ -87,7 +87,7 @@ const PredictionForm = () => {
               name="gender"
               value={formData.gender}
               onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 sm:text-sm"
+              className="block w-full rounded-lg border border-gray-300 p-3 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition duration-200"
             >
               <option value="M">Male</option>
               <option value="F">Female</option>
@@ -99,7 +99,7 @@ const PredictionForm = () => {
               name="maritalStatus"
               value={formData.maritalStatus}
               onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 sm:text-sm"
+              className="block w-full rounded-lg border border-gray-300 p-3 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition duration-200"
             >
               <option value="Married">Married</option>
               <option value="Single">Single</option>
@@ -111,7 +111,7 @@ const PredictionForm = () => {
               name="state"
               value={formData.state}
               onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 sm:text-sm"
+              className="block w-full rounded-lg border border-gray-300 p-3 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition duration-200"
             >
               <option value="Delhi">Delhi</option>
               <option value="Haryana">Haryana</option>
@@ -126,7 +126,7 @@ const PredictionForm = () => {
               name="productCategory"
               value={formData.productCategory}
               onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 sm:text-sm"
+              className="block w-full rounded-lg border border-gray-300 p-3 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition duration-200"
             >
               <option value="Electronics">Electronics</option>
               <option value="Clothing">Clothing</option>
@@ -140,7 +140,7 @@ const PredictionForm = () => {
               name="ageGroup"
               value={formData.ageGroup}
               onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 sm:text-sm"
+              className="block w-full rounded-lg border border-gray-300 p-3 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition duration-200"
             >
               <option value="18-25">18-25</option>
               <option value="26-35">26-35</option>
@@ -156,7 +156,7 @@ const PredictionForm = () => {
               name="orders"
               value={formData.orders}
               onChange={handleChange}
-              className="block w-full rounded-lg border border-gray-300 p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 sm:text-sm"
+              className="block w-full rounded-lg border border-gray-300 p-3 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition duration-200"
               placeholder="Enter number of orders"
               required
             />
@@ -164,7 +164,7 @@ const PredictionForm = () => {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`w-full bg-primary text-white font-semibold py-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition duration-200 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
             {loading ? 'Predicting...' : 'Predict Sales'}
           </button>
@@ -172,9 +172,9 @@ const PredictionForm = () => {
         <div className="mt-6 text-center space-y-3">
           {error && <p className="text-red-600 font-medium">{error}</p>}
           {prediction ? (
-            <div className="p-4 bg-green-50 rounded-lg">
+            <div className="p-4 bg-secondary/10 rounded-lg border border-secondary/20">
               <p className="text-lg font-semibold text-gray-800">Predicted Sales</p>
-              <p className="text-2xl font-bold text-green-600">${prediction.toFixed(2)}</p>
+              <p className="text-2xl font-bold text-secondary">${prediction.toFixed(2)}</p>
             </div>
           ) : (
             <p className="text-lg text-gray-600">Enter details to predict sales</p>
