@@ -4,30 +4,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "autoprefixer": "^10.4.8",
+    "chart.js": "^4.3.0",
+    "gh-pages": "^5.0.0",
+    "postcss": "^8.4.27",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^5.3.3",
-    "chart.js": "^4.3.0",
-    "react-chartjs-2": "^5.2.0",
-    "tailwindcss": "^3.3.3",
-    "postcss": "^8.4.27",
-    "autoprefixer": "^10.4.8",
-    "gh-pages": "^5.0.0"
+    "tailwindcss": "^3.3.3"
   },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^0.2.0",
-    "autoprefixer": "^10.4.20",
-    "gh-pages": "^6.0.0",
-    "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.13"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build && copy build\\index.html build\\404.html",
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build",
+    "eject": "react-scripts eject"
   },
- "scripts": {
-  "start": "react-scripts start",
-  "build": "react-scripts build && copy build\\index.html build\\404.html",
-  "deploy": "gh-pages -d build",
-  "predeploy": "npm run build",
-  "eject": "react-scripts eject"
-},
   "browserslist": {
     "production": [
       ">0.2%",
