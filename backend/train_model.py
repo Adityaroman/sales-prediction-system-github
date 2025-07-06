@@ -1,45 +1,29 @@
 import pandas as pd
-import joblib
-from sklearn.preprocessing import LabelEncoder
-from xgboost import XGBRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+import pickle
+import os
 
 # Load data
-df = pd.read_csv('sales_data.csv')
-# Validate age vs. ageGroup
-AGE_GROUP_RANGES = {
-    '18-25': (18, 25),
-    '26-35': (26, 35),
-    '36-45': (36, 45),
-    '46-55': (46, 55),
-    '56-70': (56, 70)
-}
-df = df[df.apply(lambda x: AGE_GROUP_RANGES[x['Age_Group']][0] <= x['Age'] <= AGE_GROUP_RANGES[x['Age_Group']][1], axis=1)]
-# Remove young married customers
-df = df[~((df['Age'] < 18) & (df['Marital_Status'] == 'Married'))]
-# Scale sales if needed (e.g., if in cents)
-df['Sales'] = df['Sales'] / 1000  # Adjust as needed
-# Encode categorical variables
-le_gender = LabelEncoder().fit(df['Gender'])
-le_marital = LabelEncoder().fit(df['Marital_Status'])
-le_state = LabelEncoder().fit(df['State'])
-le_category = LabelEncoder().fit(df['Product_Category'])
-le_age_group = LabelEncoder().fit(df['Age_Group'])
-df['Gender'] = le_gender.transform(df['Gender'])
-df['Marital_Status'] = le_marital.transform(df['Marital_Status'])
-df['State'] = le_state.transform(df['State'])
-df['Product_Category'] = le_category.transform(df['Product_Category'])
-df['Age_Group'] = le_age_group.transform(df['Age_Group'])
+data_path = os.path.join(os.path.dirname(__file__), 'data', 'sales_data.csv')
+if not os.path.exists(data_path):
+    raise FileNotFoundError(f'sales_data.csv not found at {data_path}')
+data = pd.read_csv(data_path)
+
 # Features and target
-features = ['Age', 'Gender', 'Marital_Status', 'State', 'Product_Category', 'Age_Group', 'Orders']
-X = df[features]
-y = df['Sales']
+features = ['age', 'gender', 'maritalStatus', 'state', 'productCategory', 'ageGroup', 'orders']
+X = pd.get_dummies(data[features], drop_first=True)
+y = data['sales']
+
 # Train model
-model = XGBRegressor()
-model.fit(X, y)
-# Save model and encoders
-joblib.dump(model, 'sales_model.pkl')
-joblib.dump(le_gender, 'le_gender.pkl')
-joblib.dump(le_marital, 'le_marital.pkl')
-joblib.dump(le_state, 'le_state.pkl')
-joblib.dump(le_category, 'le_category.pkl')
-joblib.dump(le_age_group, 'le_age_group.pkl')
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Save model
+model_path = os.path.join(os.path.dirname(__file__), 'model.pkl')
+with open(model_path, 'wb') as file:
+    pickle.dump(model, file)
+
+print(f'Model trained and saved as {model_path}')
+print('Feature columns:', list(X.columns))
