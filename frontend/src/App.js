@@ -1,4 +1,3 @@
-Set-Content -Path frontend\src\App.js -Value @"
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 const Dashboard = lazy(() => import('./Dashboard'));
@@ -68,4 +67,3 @@ function App() {
 }
 
 export default App;
-"@

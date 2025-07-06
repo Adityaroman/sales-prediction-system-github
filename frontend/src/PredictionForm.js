@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 
 const PredictionForm = () => {
   const [formData, setFormData] = useState({
-    age: '',
+    age: '30',
     gender: 'M',
     maritalStatus: 'Married',
     state: 'Delhi',
     productCategory: 'Electronics',
-    ageGroup: '18-25',
-    orders: '',
+    ageGroup: '36-45',
+    orders: '200',
     festival: 'Diwali'
   });
   const [prediction, setPrediction] = useState(null);
